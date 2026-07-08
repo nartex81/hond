@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagina niet gevonden — Zorghond Mollie</title>
+<meta name="theme-color" content="#1F3F37">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bosgroen:#2F5D50;--diepgroen:#1F3F37;--mollie-goud:#DFA33C;--zacht-goud:#F3DCAE;
+    --papier:#FBF7EE;--inkt:#2B2620;--stempelrood:#B4543A;--zachtgroen:#E3EDE9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:'Nunito Sans',sans-serif;color:var(--inkt);background:var(--papier);
+    min-height:100%;display:flex;align-items:center;justify-content:center;padding:32px 20px;
+    background-image:radial-gradient(circle at 50% 0%, rgba(223,163,60,0.10), transparent 55%);
+  }
+  .box{max-width:460px;text-align:center;}
+  .crest{
+    width:96px;height:96px;border-radius:50%;margin:0 auto 22px;
+    border:3px dashed var(--mollie-goud);display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle,#fff 58%,var(--zacht-goud) 100%);
+    box-shadow:inset 0 0 0 7px rgba(223,163,60,0.12);font-size:2.4rem;
+  }
+  .code{
+    font-family:'Fraunces',serif;font-weight:900;font-size:4rem;line-height:1;
+    color:var(--diepgroen);letter-spacing:.02em;
+  }
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;color:var(--diepgroen);margin:10px 0 12px;}
+  p{font-size:1rem;line-height:1.6;color:#5f574b;margin-bottom:26px;}
+  .btn{
+    display:inline-block;background:var(--bosgroen);color:#fff;text-decoration:none;
+    font-weight:800;font-size:1rem;padding:14px 28px;border-radius:999px;
+    box-shadow:0 6px 16px rgba(47,93,80,0.28);transition:transform .15s ease, background .15s ease;
+  }
+  .btn:hover{background:var(--diepgroen);transform:translateY(-2px);}
+  .tagline{margin-top:30px;font-family:'Fraunces',serif;font-style:italic;color:var(--mollie-goud);font-size:0.95rem;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="crest">🐾</div>
+    <div class="code">404</div>
+    <h1>Deze pagina is er niet… maar Mollie wel!</h1>
+    <p>Het adres dat je zocht bestaat niet (meer). Misschien is er een typfoutje geslopen, of is de pagina verhuisd. Laten we je terugbrengen naar veilige grond.</p>
+    <a class="btn" href="/">🏠 Terug naar de startpagina</a>
+    <div class="tagline">short legs, big love</div>
+  </div>
+</body>
+</html>
