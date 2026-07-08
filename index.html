@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>hondmee.be — Gidsen &amp; tools</title>
+<title>Zorghond Mollie — Gidsen &amp; tools</title>
 <meta name="theme-color" content="#1F3F37">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -73,6 +73,23 @@
     header h1{font-size:1.7rem;}
     .grid{grid-template-columns:1fr;}
   }
+  /* ---- Suggestie-knop ---- */
+  .suggest{
+    max-width:900px;margin:26px auto 0;padding:0 20px;text-align:center;
+  }
+  .suggest .card{
+    background:#fff;border:1px solid var(--zachtgroen);border-radius:18px;
+    padding:24px 22px;box-shadow:0 4px 14px rgba(31,63,55,0.06);
+  }
+  .suggest h2{font-size:1.25rem;margin-bottom:6px;}
+  .suggest p{font-size:0.9rem;color:#5f574b;line-height:1.5;margin-bottom:16px;}
+  .suggest .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--mollie-goud);color:var(--inkt);text-decoration:none;
+    font-weight:800;font-size:0.98rem;padding:13px 24px;border-radius:999px;
+    box-shadow:0 6px 16px rgba(223,163,60,0.28);transition:transform .15s ease, background .15s ease;
+  }
+  .suggest .btn:hover{background:#c98f2c;transform:translateY(-2px);}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
 </head>
@@ -81,7 +98,7 @@
 <header>
   <div class="inner">
     <div class="crest">🐾</div>
-    <div class="brand">hondmee.be</div>
+    <div class="brand">Zorghond Mollie</div>
     <h1>Gidsen &amp; tools</h1>
     <div class="tagline">short legs, big love</div>
     <p>Praktische hulpmiddelen voor onderweg met de hond — kies hieronder waar je naartoe wil.</p>
@@ -92,7 +109,25 @@
   <div class="grid" id="grid"></div>
 </div>
 
-<footer><span class="paw">🐾</span> hondmee.be · zorghond.be</footer>
+<!-- ===================================================================
+     SUGGESTIE-KNOP
+     De link opent een nieuwe "issue" op github.com/nartex81/hond
+     met een kant-en-klaar sjabloon. Andere repo? Pas de naam in de
+     href hieronder aan.
+     =================================================================== -->
+<div class="suggest">
+  <div class="card">
+    <h2>💬 Heb je een suggestie?</h2>
+    <p>Zie je een fout in de gegevens, of heb je een idee om deze gidsen beter te maken? Laat het ons weten — alle tips zijn welkom.</p>
+    <a class="btn"
+       href="https://github.com/nartex81/hond/issues/new?title=Suggestie%20voor%20de%20hondengids&body=Wat%20wil%20je%20aanvullen%20of%20verbeteren%3F%0A%0A(Beschrijf%20hier%20je%20suggestie%20of%20de%20fout%20die%20je%20zag.)"
+       target="_blank" rel="noopener">
+      🐾 Stuur een suggestie
+    </a>
+  </div>
+</div>
+
+<footer><span class="paw">🐾</span> Zorghond Mollie · zorghond.be</footer>
 
 <script>
 /* =====================================================================
@@ -115,7 +150,7 @@ const LINKS = [
     titel: "Honden op het strand",
     tekst: "Waar, wanneer en hoe honden welkom zijn op de stranden van België, Zeeland en Zuid-Holland.",
     url:   "honden-stranden.html",
-    badge: "update"
+    badge: ""
   },
   {
     emoji: "🌤️",
@@ -129,7 +164,7 @@ const LINKS = [
     titel: "Wandelweer (app)",
     tekst: "Dezelfde wandelweer-gids in een app-vorm. Voeg toe aan je beginscherm voor full-screen gebruik.",
     url:   "wandelweer-app.html",
-    badge: "Nieuw"
+    badge: "App"
   },
 
   /* --- Kopieer dit blok voor een nieuwe link ---
