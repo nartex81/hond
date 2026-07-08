@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="/favicon-180.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zorghond Mollie — Gidsen &amp; tools</title>
@@ -20,25 +17,42 @@
   h1,h2,h3{font-family:'Fraunces',serif;margin:0;color:var(--diepgroen);}
   a{text-decoration:none;color:inherit;}
 
-  /* ---- Header ---- */
+  /* ---- Masthead ---- */
   header{
     background:var(--diepgroen);color:var(--papier);text-align:center;
-    padding:56px 24px 64px;position:relative;overflow:hidden;
+    padding:64px 24px 76px;position:relative;overflow:hidden;
     border-bottom:4px solid var(--mollie-goud);
   }
+  /* zachte gouden gloed bovenin */
   header::before{content:"";position:absolute;inset:0;
-    background:radial-gradient(circle at 50% -20%, rgba(223,163,60,0.28), transparent 60%);}
+    background:radial-gradient(circle at 50% -10%, rgba(223,163,60,0.30), transparent 62%);}
+  /* subtiele hoeklijnen als kader (stempel-gevoel) */
+  header::after{content:"";position:absolute;left:22px;right:22px;top:22px;bottom:22px;
+    border:1px solid rgba(223,163,60,0.22);border-radius:14px;pointer-events:none;}
   header .inner{position:relative;z-index:1;}
+
   .crest{
-    width:76px;height:76px;border-radius:50%;margin:0 auto 16px;
+    width:84px;height:84px;border-radius:50%;margin:0 auto 18px;
     border:3px dashed var(--mollie-goud);display:flex;align-items:center;justify-content:center;
     background:radial-gradient(circle,rgba(251,247,238,0.10) 55%,rgba(223,163,60,0.18) 100%);
-    font-size:2rem;box-shadow:inset 0 0 0 6px rgba(223,163,60,0.10);
+    font-size:2.2rem;box-shadow:inset 0 0 0 6px rgba(223,163,60,0.10);
   }
-  header .brand{font-size:0.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mollie-goud);font-weight:800;margin-bottom:8px;}
-  header h1{color:var(--papier);font-size:2.1rem;font-weight:900;line-height:1.1;}
-  header .tagline{color:var(--zacht-goud);font-style:italic;font-family:'Fraunces',serif;font-size:1.05rem;margin-top:8px;}
-  header p{color:var(--zacht-goud);max-width:520px;margin:14px auto 0;font-size:0.95rem;line-height:1.5;}
+  header .brand{font-size:0.72rem;letter-spacing:.20em;text-transform:uppercase;color:var(--mollie-goud);font-weight:800;margin-bottom:14px;}
+
+  /* het woordmerk */
+  .wordmark{
+    font-family:'Fraunces',serif;font-weight:900;color:var(--papier);
+    font-size:clamp(2.6rem, 9vw, 4.2rem);line-height:1;letter-spacing:-0.01em;
+  }
+  .wordmark .dot{color:var(--mollie-goud);}
+
+  /* scheidingslijn met pootje */
+  .rule{display:flex;align-items:center;justify-content:center;gap:14px;margin:18px auto 0;max-width:280px;}
+  .rule .line{flex:1;height:1px;background:linear-gradient(to right, transparent, rgba(223,163,60,0.6));}
+  .rule .line.left{background:linear-gradient(to left, transparent, rgba(223,163,60,0.6));}
+  .rule .paw{color:var(--mollie-goud);font-size:0.95rem;flex:0 0 auto;}
+
+  header .tagline{color:var(--zacht-goud);font-style:italic;font-family:'Fraunces',serif;font-size:clamp(1rem,3.5vw,1.2rem);margin-top:14px;}
 
   /* ---- Grid ---- */
   .wrap{max-width:900px;margin:0 auto;padding:0 20px;}
@@ -102,9 +116,9 @@
   <div class="inner">
     <div class="crest">🐾</div>
     <div class="brand">Zorghond Mollie</div>
-    <h1>Gidsen &amp; tools</h1>
+    <div class="wordmark">hondmee<span class="dot">.be</span></div>
+    <div class="rule"><span class="line left"></span><span class="paw">🐾</span><span class="line"></span></div>
     <div class="tagline">short legs, big love</div>
-    <p>Praktische hulpmiddelen voor onderweg met de hond — kies hieronder waar je naartoe wil.</p>
   </div>
 </header>
 
