@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zorghond Mollie — Gidsen &amp; tools</title>
+<meta name="theme-color" content="#1F3F37">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bosgroen:#2F5D50;--diepgroen:#1F3F37;--mollie-goud:#DFA33C;--zacht-goud:#F3DCAE;
+    --papier:#FBF7EE;--inkt:#2B2620;--stempelrood:#B4543A;--zachtgroen:#E3EDE9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{font-family:'Nunito Sans',sans-serif;color:var(--inkt);background:var(--papier);}
+  h1,h2,h3{font-family:'Fraunces',serif;margin:0;color:var(--diepgroen);}
+  a{text-decoration:none;color:inherit;}
+
+  /* ---- Header ---- */
+  header{
+    background:var(--diepgroen);color:var(--papier);text-align:center;
+    padding:56px 24px 64px;position:relative;overflow:hidden;
+    border-bottom:4px solid var(--mollie-goud);
+  }
+  header::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 50% -20%, rgba(223,163,60,0.28), transparent 60%);}
+  header .inner{position:relative;z-index:1;}
+  .crest{
+    width:76px;height:76px;border-radius:50%;margin:0 auto 16px;
+    border:3px dashed var(--mollie-goud);display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle,rgba(251,247,238,0.10) 55%,rgba(223,163,60,0.18) 100%);
+    font-size:2rem;box-shadow:inset 0 0 0 6px rgba(223,163,60,0.10);
+  }
+  header .brand{font-size:0.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mollie-goud);font-weight:800;margin-bottom:8px;}
+  header h1{color:var(--papier);font-size:2.1rem;font-weight:900;line-height:1.1;}
+  header .tagline{color:var(--zacht-goud);font-style:italic;font-family:'Fraunces',serif;font-size:1.05rem;margin-top:8px;}
+  header p{color:var(--zacht-goud);max-width:520px;margin:14px auto 0;font-size:0.95rem;line-height:1.5;}
+
+  /* ---- Grid ---- */
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px;}
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;
+    margin-top:-36px;position:relative;z-index:2;padding-bottom:8px;
+  }
+  .tile{
+    background:#fff;border:1px solid var(--zachtgroen);border-radius:18px;padding:22px 20px;
+    display:flex;flex-direction:column;gap:10px;position:relative;
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    box-shadow:0 4px 14px rgba(31,63,55,0.06);
+  }
+  .tile:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(31,63,55,0.13);border-color:var(--mollie-goud);}
+  .tile:active{transform:translateY(-1px);}
+  .tile .icon{
+    width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    font-size:1.6rem;background:var(--zachtgroen);
+  }
+  .tile h3{font-size:1.2rem;}
+  .tile p{font-size:0.88rem;line-height:1.45;color:#5f574b;flex:1;}
+  .tile .go{display:flex;align-items:center;gap:6px;font-weight:800;font-size:0.85rem;color:var(--bosgroen);}
+  .tile .go .arrow{transition:transform .16s ease;}
+  .tile:hover .go .arrow{transform:translateX(4px);}
+  .badge{
+    position:absolute;top:16px;right:16px;font-size:0.62rem;font-weight:800;letter-spacing:.04em;
+    text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--stempelrood);color:#fff;
+  }
+
+  footer{text-align:center;padding:34px 20px 40px;font-size:0.8rem;color:#8a8071;}
+  footer .paw{color:var(--mollie-goud);}
+
+  @media (max-width:520px){
+    header{padding:44px 20px 56px;}
+    header h1{font-size:1.7rem;}
+    .grid{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <div class="crest">🐾</div>
+    <div class="brand">Zorghond Mollie</div>
+    <h1>Gidsen &amp; tools</h1>
+    <div class="tagline">short legs, big love</div>
+    <p>Praktische hulpmiddelen voor onderweg met de hond — kies hieronder waar je naartoe wil.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid" id="grid"></div>
+</div>
+
+<footer><span class="paw">🐾</span> Zorghond Mollie · zorghond.be</footer>
+
+<script>
+/* =====================================================================
+   HIER PAS JE DE LINKS AAN
+   ---------------------------------------------------------------------
+   Voeg een link toe door een blok te kopiëren en aan te passen.
+   Elk blok heeft:
+     emoji  : het icoontje (elk emoji mag)
+     titel  : de naam van de pagina
+     tekst  : korte omschrijving
+     url    : link naar de pagina (bestandsnaam of volledige https-link)
+     badge  : (optioneel) klein labeltje, bv. "Nieuw" — laat weg of "" voor geen badge
+
+   Interne links (bestand in dezelfde map) openen in hetzelfde tabblad,
+   externe links (beginnend met http) openen in een nieuw tabblad.
+   ===================================================================== */
+const LINKS = [
+  {
+    emoji: "🗺️",
+    titel: "Honden op het strand",
+    tekst: "Waar, wanneer en hoe honden welkom zijn op de stranden van België, Zeeland en Zuid-Holland.",
+    url:   "honden-stranden.html",
+    badge: ""
+  },
+  {
+    emoji: "🌤️",
+    titel: "Wandelweer",
+    tekst: "Geef een locatie in en zie het beste moment van vandaag om met de hond te wandelen.",
+    url:   "wandelweer.html",
+    badge: ""
+  },
+  {
+    emoji: "📱",
+    titel: "Wandelweer (app)",
+    tekst: "Dezelfde wandelweer-gids in een app-vorm. Voeg toe aan je beginscherm voor full-screen gebruik.",
+    url:   "wandelweer-app.html",
+    badge: "App"
+  },
+
+  /* --- Kopieer dit blok voor een nieuwe link ---
+  {
+    emoji: "🐕",
+    titel: "Titel van je pagina",
+    tekst: "Korte omschrijving die op de kaart verschijnt.",
+    url:   "jouw-pagina.html",
+    badge: ""
+  },
+  ------------------------------------------------ */
+];
+
+/* ---- Render (hier hoef je niets aan te passen) ---- */
+const grid = document.getElementById('grid');
+LINKS.forEach(link => {
+  const isExternal = /^https?:\/\//i.test(link.url);
+  const a = document.createElement('a');
+  a.className = "tile";
+  a.href = link.url;
+  if(isExternal){ a.target = "_blank"; a.rel = "noopener"; }
+  a.innerHTML = `
+    ${link.badge ? `<span class="badge">${link.badge}</span>` : ""}
+    <div class="icon">${link.emoji || "🔗"}</div>
+    <h3>${link.titel || "Zonder titel"}</h3>
+    <p>${link.tekst || ""}</p>
+    <div class="go">Openen <span class="arrow">›</span></div>
+  `;
+  grid.appendChild(a);
+});
+</script>
+</body>
+</html>
