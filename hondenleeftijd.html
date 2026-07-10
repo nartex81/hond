@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hondenleeftijd-calculator — Zorghond Mollie</title>
+<meta name="theme-color" content="#1F3F37">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bosgroen:#2F5D50;--diepgroen:#1F3F37;--mollie-goud:#DFA33C;--zacht-goud:#F3DCAE;
+    --papier:#FBF7EE;--inkt:#2B2620;--stempelrood:#B4543A;--zachtgroen:#E3EDE9;--midgroen:#6DA08C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{font-family:'Nunito Sans',sans-serif;color:var(--inkt);background:var(--papier);}
+  h1,h2,h3{font-family:'Fraunces',serif;margin:0;color:var(--diepgroen);}
+
+  header{
+    background:var(--diepgroen);color:var(--zacht-goud);text-align:center;
+    padding:32px 24px 26px;border-bottom:4px solid var(--mollie-goud);
+  }
+  header .eyebrow{font-size:0.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mollie-goud);font-weight:800;margin-bottom:6px;}
+  header h1{color:var(--papier);font-size:1.8rem;}
+  header p{max-width:560px;margin:10px auto 0;color:var(--zacht-goud);font-size:0.95rem;line-height:1.5;}
+
+  .wrap{max-width:640px;margin:0 auto;padding:0 18px;}
+
+  .card{
+    background:#fff;border:1px solid var(--zachtgroen);border-radius:18px;
+    padding:24px 22px;box-shadow:0 6px 18px rgba(31,63,55,0.07);
+    margin:-16px auto 20px;position:relative;z-index:2;
+  }
+  .label{font-size:0.78rem;font-weight:800;color:var(--bosgroen);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;display:block;}
+
+  .sizes{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;}
+  .size-btn{
+    flex:1;min-width:120px;border:2px solid var(--zachtgroen);background:#fff;border-radius:14px;
+    padding:14px 12px;cursor:pointer;text-align:center;transition:all .15s ease;font-family:'Nunito Sans',sans-serif;
+  }
+  .size-btn .em{font-size:1.6rem;line-height:1;}
+  .size-btn .nm{font-weight:800;color:var(--inkt);margin-top:6px;font-size:0.98rem;}
+  .size-btn .kg{font-size:0.78rem;color:#8a8071;margin-top:2px;}
+  .size-btn:hover{border-color:var(--midgroen);}
+  .size-btn.active{border-color:var(--bosgroen);background:var(--zachtgroen);}
+
+  .age-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .age-field{flex:1;min-width:120px;}
+  .age-field input{
+    width:100%;border:2px solid var(--zachtgroen);border-radius:12px;padding:13px 14px;
+    font-size:1.1rem;font-family:'Fraunces',serif;font-weight:600;color:var(--diepgroen);background:#fff;
+  }
+  .age-field input:focus{outline:3px solid var(--zacht-goud);border-color:var(--mollie-goud);}
+  .age-field .sub{font-size:0.76rem;color:#8a8071;margin-top:5px;}
+
+  /* Resultaat */
+  .result{
+    background:linear-gradient(160deg,var(--bosgroen),var(--diepgroen));color:var(--papier);
+    border-radius:18px;padding:26px 24px;margin-bottom:20px;display:flex;gap:22px;align-items:center;flex-wrap:wrap;
+  }
+  .stamp{
+    flex:0 0 auto;width:130px;height:130px;border-radius:50%;
+    border:3px dashed var(--mollie-goud);display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:radial-gradient(circle,rgba(251,247,238,0.10) 58%,rgba(223,163,60,0.20) 100%);
+    box-shadow:inset 0 0 0 6px rgba(223,163,60,0.10);text-align:center;
+  }
+  .stamp .num{font-family:'Fraunces',serif;font-weight:900;font-size:2.6rem;line-height:1;color:var(--papier);}
+  .stamp .unit{font-size:0.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--zacht-goud);font-weight:800;margin-top:4px;}
+  .result-body{flex:1;min-width:200px;}
+  .result-body .kicker{font-size:0.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mollie-goud);font-weight:800;}
+  .result-body h2{color:var(--papier);font-size:1.5rem;margin:3px 0 8px;}
+  .result-body .stage{display:inline-block;background:var(--mollie-goud);color:var(--inkt);font-weight:800;font-size:0.8rem;
+    text-transform:uppercase;letter-spacing:.03em;padding:4px 12px;border-radius:999px;margin-bottom:8px;}
+  .result-body p{color:var(--zacht-goud);font-size:0.92rem;line-height:1.5;}
+
+  .about{background:#fff;border:1px solid var(--zachtgroen);border-radius:16px;padding:22px 24px;margin-bottom:28px;}
+  .about h2{font-size:1.2rem;margin-bottom:10px;}
+  .about p{font-size:0.9rem;line-height:1.6;margin-bottom:8px;}
+  .about table{width:100%;border-collapse:collapse;margin:12px 0;font-size:0.88rem;}
+  .about th,.about td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--zachtgroen);}
+  .about th{color:var(--bosgroen);}
+  .about .src{color:#8a8071;font-size:0.8rem;margin-top:6px;}
+
+  footer{text-align:center;padding:20px;font-size:0.78rem;color:#8a8071;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+  @media (max-width:520px){header h1{font-size:1.5rem;} .stamp{width:112px;height:112px;} .stamp .num{font-size:2.2rem;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Zorghond Mollie · praktische gids</div>
+  <h1>🐾 Hoe oud is je hond echt?</h1>
+  <p>Honden verouderen niet gewoon "maal zeven". Vul de leeftijd en grootte in en zie de leeftijd van je hond in mensenjaren.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <span class="label">Grootte van je hond</span>
+    <div class="sizes" id="sizes">
+      <button class="size-btn" data-size="klein"><div class="em">🐕‍🦺</div><div class="nm">Klein</div><div class="kg">tot 10 kg</div></button>
+      <button class="size-btn active" data-size="middel"><div class="em">🐕</div><div class="nm">Middel</div><div class="kg">10 – 25 kg</div></button>
+      <button class="size-btn" data-size="groot"><div class="em">🦮</div><div class="nm">Groot</div><div class="kg">25 kg en meer</div></button>
+    </div>
+
+    <span class="label">Leeftijd van je hond</span>
+    <div class="age-row">
+      <div class="age-field">
+        <input type="number" id="years" min="0" max="30" step="1" value="3" inputmode="numeric">
+        <div class="sub">jaren</div>
+      </div>
+      <div class="age-field">
+        <input type="number" id="months" min="0" max="11" step="1" value="0" inputmode="numeric">
+        <div class="sub">maanden (optioneel)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="result">
+    <div class="stamp">
+      <span class="num" id="humanAge">–</span>
+      <span class="unit">mensenjaren</span>
+    </div>
+    <div class="result-body">
+      <div class="kicker">In mensenjaren</div>
+      <h2 id="humanHeadline">–</h2>
+      <span class="stage" id="stage">–</span>
+      <p id="explain">–</p>
+    </div>
+  </div>
+
+  <div class="about">
+    <h2>Hoe berekenen we dit?</h2>
+    <p>De oude regel "1 hondenjaar = 7 mensenjaren" klopt niet. Honden groeien het eerste jaar razendsnel op en verouderen daarna trager — en de grootte speelt een grote rol: kleine honden leven doorgaans langer en verouderen later dan grote honden.</p>
+    <p>We gebruiken de veelgebruikte richtlijn: het eerste jaar telt als ongeveer 15 mensenjaren, het tweede jaar komt daar zo'n 9 bij (samen ±24), en elk jaar daarna telt afhankelijk van de grootte:</p>
+    <table>
+      <tr><th>Grootte</th><th>Per extra jaar</th></tr>
+      <tr><td>Klein (tot 10 kg)</td><td>± 4 mensenjaren</td></tr>
+      <tr><td>Middel (10–25 kg)</td><td>± 5 mensenjaren</td></tr>
+      <tr><td>Groot (25 kg+)</td><td>± 6 mensenjaren</td></tr>
+    </table>
+    <p class="src">Dit is een richtlijn: ras, gezondheid en levensstijl spelen ook mee. Bij twijfel over de gezondheid van je hond is je dierenarts de beste gids.</p>
+  </div>
+
+</div>
+
+<footer>🐾 Gemaakt voor Zorghond Mollie · hondmee.be</footer>
+
+<script>
+const perYear = {klein:4, middel:5, groot:6};
+let size = "middel";
+
+function humanAge(years, sz){
+  if(years <= 0) return 0;
+  if(years <= 1) return years * 15;
+  if(years <= 2) return 15 + (years - 1) * 9;
+  return 24 + (years - 2) * perYear[sz];
+}
+
+function stageFor(h){
+  if(h < 15)  return ["Pup", "Nog volop aan het groeien en ontdekken — een echte kleuter."];
+  if(h < 30)  return ["Jonge hond", "Vol energie en in de bloei van het leven."];
+  if(h < 48)  return ["Volwassen", "Op zijn/haar sterkst: rustig, stabiel en in balans."];
+  if(h < 63)  return ["Oudere hond", "Wat rustiger aan. Een goed moment voor extra aandacht en comfort."];
+  return ["Senior", "Een wijze, gerijpte hond. Geniet van de rustige momenten samen."];
+}
+
+function update(){
+  const y = parseFloat(document.getElementById('years').value) || 0;
+  const m = parseFloat(document.getElementById('months').value) || 0;
+  const total = y + (m / 12);
+  const h = Math.round(humanAge(total, size));
+
+  document.getElementById('humanAge').textContent = h > 0 ? h : "–";
+
+  const ageText = m > 0 ? `${y} jaar en ${m} ${m===1?'maand':'maanden'}` : `${y} ${y===1?'jaar':'jaar'}`;
+  document.getElementById('humanHeadline').textContent =
+    total > 0 ? `Je hond van ${ageText}` : "Vul een leeftijd in";
+
+  const [stage, note] = stageFor(h);
+  document.getElementById('stage').textContent = total > 0 ? stage : "–";
+  document.getElementById('explain').textContent =
+    total > 0 ? `Dat is qua leeftijd vergelijkbaar met een mens van ongeveer ${h} jaar. ${note}` : "";
+}
+
+document.querySelectorAll('.size-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    size = btn.dataset.size;
+    update();
+  });
+});
+document.getElementById('years').addEventListener('input', update);
+document.getElementById('months').addEventListener('input', update);
+
+update();
+</script>
+</body>
+</html>
