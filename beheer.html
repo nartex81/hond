@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beheer &#183; hondmee.be</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1F3F37">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bosgroen:#2F5D50;--diepgroen:#1F3F37;--mollie-goud:#DFA33C;--zacht-goud:#F3DCAE;
+    --papier:#FBF7EE;--inkt:#2B2620;--stempelrood:#B4543A;--zachtgroen:#E3EDE9;--midgroen:#6DA08C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{font-family:'Nunito Sans',sans-serif;color:var(--inkt);background:var(--papier);}
+  h1,h2{font-family:'Fraunces',serif;margin:0;color:var(--diepgroen);}
+
+  header{background:var(--diepgroen);color:var(--papier);padding:20px 22px;border-bottom:3px solid var(--mollie-goud);
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  header .eyebrow{font-size:0.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mollie-goud);font-weight:800;}
+  header h1{color:var(--papier);font-size:1.3rem;}
+  .who{font-size:0.82rem;color:var(--zacht-goud);display:flex;align-items:center;gap:12px;}
+  .link-btn{background:none;border:none;color:var(--zacht-goud);font-weight:700;cursor:pointer;text-decoration:underline;font-size:0.82rem;font-family:inherit;}
+
+  .wrap{max-width:640px;margin:0 auto;padding:22px 18px 60px;}
+
+  .card{background:#fff;border:1px solid var(--zachtgroen);border-radius:16px;padding:22px;margin-bottom:18px;box-shadow:0 4px 14px rgba(31,63,55,0.06);}
+
+  label{display:block;font-size:0.76rem;font-weight:800;color:var(--bosgroen);text-transform:uppercase;letter-spacing:.04em;margin:0 0 6px;}
+  input,select,textarea{width:100%;border:2px solid var(--zachtgroen);border-radius:10px;padding:11px 12px;
+    font-size:1rem;font-family:'Nunito Sans',sans-serif;color:var(--inkt);background:#fff;margin-bottom:14px;}
+  input:focus,select:focus,textarea:focus{outline:3px solid var(--zacht-goud);border-color:var(--mollie-goud);}
+  textarea{min-height:80px;resize:vertical;}
+  .row{display:flex;gap:12px;}
+  .row>div{flex:1;}
+  .hint{font-size:0.76rem;color:#8a8071;margin:-10px 0 14px;}
+
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:-6px 0 14px;}
+  .chip{border:1.5px solid var(--zachtgroen);background:#fff;border-radius:999px;padding:5px 11px;font-size:0.78rem;
+    font-weight:700;color:var(--bosgroen);cursor:pointer;font-family:inherit;}
+  .chip:hover{background:var(--zachtgroen);}
+
+  .btn{background:var(--bosgroen);color:#fff;border:none;border-radius:999px;padding:13px 24px;font-weight:800;
+    font-size:1rem;cursor:pointer;font-family:inherit;width:100%;}
+  .btn:hover{background:var(--diepgroen);}
+  .btn:disabled{opacity:.5;cursor:default;}
+
+  .msg{padding:11px 14px;border-radius:10px;font-size:0.9rem;font-weight:700;margin-bottom:14px;display:none;}
+  .msg.ok{background:#e3ede9;color:#256150;display:block;}
+  .msg.err{background:#f6e0da;color:#963f2c;display:block;}
+
+  .recent{list-style:none;}
+  .recent li{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--zachtgroen);font-size:0.9rem;}
+  .recent .st{font-size:0.7rem;font-weight:800;text-transform:uppercase;padding:2px 8px;border-radius:999px;white-space:nowrap;}
+  .st.voorgesteld{background:#eee;color:#6b6255;}
+  .st.geverifieerd{background:var(--zacht-goud);color:#6b4a12;}
+  .st.bezocht{background:var(--mollie-goud);color:var(--inkt);}
+
+  #login{max-width:400px;margin:60px auto;}
+  #app{display:none;}
+  .spinner{width:20px;height:20px;border:3px solid var(--zachtgroen);border-top-color:var(--bosgroen);border-radius:50%;
+    animation:spin .8s linear infinite;display:inline-block;vertical-align:middle;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="eyebrow">Zorghond Mollie &#183; beheer</div>
+    <h1>&#128062; Plekken beheren</h1>
+  </div>
+  <div class="who" id="who"></div>
+</header>
+
+<div class="wrap">
+
+  <!-- LOGIN -->
+  <div id="login" class="card">
+    <h2 style="font-size:1.15rem;margin-bottom:14px;">Inloggen</h2>
+    <div class="msg" id="loginMsg"></div>
+    <label for="email">E-mail</label>
+    <input type="email" id="email" autocomplete="username">
+    <label for="password">Wachtwoord</label>
+    <input type="password" id="password" autocomplete="current-password">
+    <button class="btn" id="loginBtn">Inloggen</button>
+  </div>
+
+  <!-- APP -->
+  <div id="app">
+    <div class="card">
+      <h2 style="font-size:1.15rem;margin-bottom:16px;">Nieuwe plek toevoegen</h2>
+      <div class="msg" id="formMsg"></div>
+
+      <label for="naam">Naam</label>
+      <input type="text" id="naam" placeholder="Bv. Landschap De Liereman">
+
+      <div class="row">
+        <div>
+          <label for="categorie">Categorie</label>
+          <select id="categorie">
+            <option value="natuur">Bos &amp; natuur</option>
+            <option value="los">Losloopzone</option>
+            <option value="terras">Terras / horeca</option>
+            <option value="winkel">Winkel / trimsalon</option>
+          </select>
+        </div>
+        <div>
+          <label for="status">Status</label>
+          <select id="status">
+            <option value="voorgesteld">Voorgesteld (verborgen)</option>
+            <option value="geverifieerd">Geverifieerd</option>
+            <option value="bezocht">Bezocht door Mollie</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="coords">Co&#246;rdinaten plakken (lat, lng)</label>
+      <input type="text" id="coords" placeholder="51.320, 4.985">
+      <div class="hint">Tip: rechtsklik op de plek in Google Maps en klik op de twee getallen om ze te kopi&#235;ren.</div>
+
+      <div class="row">
+        <div><label for="lat">Lat</label><input type="text" id="lat" placeholder="51.320"></div>
+        <div><label for="lng">Lng</label><input type="text" id="lng" placeholder="4.985"></div>
+      </div>
+
+      <label for="note">Beschrijving</label>
+      <textarea id="note" placeholder="Korte, eerlijke beschrijving van de plek."></textarea>
+
+      <label for="tags">Kenmerken (labeltjes)</label>
+      <input type="text" id="tags" placeholder="Aangelijnd, Parking, Water in de buurt">
+      <div class="chips" id="chips"></div>
+
+      <label for="adres">Adres (optioneel)</label>
+      <input type="text" id="adres" placeholder="Straat en gemeente">
+
+      <label for="bron">Bron / link (optioneel)</label>
+      <input type="url" id="bron" placeholder="https://...">
+
+      <button class="btn" id="saveBtn">Plek opslaan</button>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:1.1rem;margin-bottom:12px;">Laatst toegevoegd</h2>
+      <ul class="recent" id="recent"><li>Laden&#8230;</li></ul>
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const SUPABASE_URL = "https://uamgtqstdrhckpxmbriv.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhbWd0cXN0ZHJoY2tweG1icml2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3NTc2MzEsImV4cCI6MjA5OTMzMzYzMX0.wxNckYVCT3AzBf0w-luGN6iKAsHTF_OlJ6MaLmbTCck";
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const $ = id => document.getElementById(id);
+const loginView = $('login'), appView = $('app');
+
+function showApp(email){
+  loginView.style.display = "none";
+  appView.style.display = "block";
+  $('who').innerHTML = email + ' &#183; <button class="link-btn" id="logoutBtn">uitloggen</button>';
+  $('logoutBtn').addEventListener('click', async () => { await supabase.auth.signOut(); location.reload(); });
+  loadRecent();
+}
+function showLogin(){ loginView.style.display = "block"; appView.style.display = "none"; $('who').textContent = ""; }
+
+// Bestaande sessie?
+const { data:{ session } } = await supabase.auth.getSession();
+if(session){ showApp(session.user.email); } else { showLogin(); }
+
+// Inloggen
+$('loginBtn').addEventListener('click', async () => {
+  const msg = $('loginMsg'); msg.className = "msg"; msg.style.display = "none";
+  $('loginBtn').disabled = true; $('loginBtn').textContent = "Bezig...";
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: $('email').value.trim(), password: $('password').value
+  });
+  $('loginBtn').disabled = false; $('loginBtn').textContent = "Inloggen";
+  if(error){ msg.className = "msg err"; msg.textContent = "Inloggen mislukt: " + error.message; }
+  else { showApp(data.user.email); }
+});
+
+// Coordinaten plakken -> lat/lng
+$('coords').addEventListener('input', () => {
+  const parts = $('coords').value.split(',').map(s => s.trim());
+  if(parts.length === 2 && parts[0] && parts[1]){ $('lat').value = parts[0]; $('lng').value = parts[1]; }
+});
+
+// Kenmerk-chips
+const SUGG = ["Aangelijnd","Los toegelaten","Parking","Water in de buurt","Schaduw","Honden welkom","Terras","Water voor honden","Bos","Natuurgebied"];
+const chipsEl = $('chips');
+SUGG.forEach(t => {
+  const c = document.createElement('button');
+  c.type = "button"; c.className = "chip"; c.textContent = "+ " + t;
+  c.addEventListener('click', () => {
+    const cur = $('tags').value.split(',').map(s=>s.trim()).filter(Boolean);
+    if(!cur.includes(t)){ cur.push(t); $('tags').value = cur.join(", "); }
+  });
+  chipsEl.appendChild(c);
+});
+
+// Opslaan
+$('saveBtn').addEventListener('click', async () => {
+  const msg = $('formMsg'); msg.className = "msg"; msg.style.display = "none";
+  const naam = $('naam').value.trim();
+  const lat = parseFloat($('lat').value), lng = parseFloat($('lng').value);
+  if(!naam){ msg.className="msg err"; msg.textContent="Geef een naam in."; return; }
+  if(isNaN(lat) || isNaN(lng)){ msg.className="msg err"; msg.textContent="Vul geldige co\u00f6rdinaten in."; return; }
+
+  $('saveBtn').disabled = true; $('saveBtn').textContent = "Opslaan...";
+  const { error } = await supabase.from('plekken').insert({
+    naam, categorie: $('categorie').value, status: $('status').value,
+    lat, lng, note: $('note').value.trim() || null,
+    tags: $('tags').value.trim() || null, adres: $('adres').value.trim() || null,
+    bron: $('bron').value.trim() || null
+  });
+  $('saveBtn').disabled = false; $('saveBtn').textContent = "Plek opslaan";
+
+  if(error){ msg.className="msg err"; msg.textContent = "Opslaan mislukt: " + error.message; }
+  else {
+    msg.className="msg ok"; msg.textContent = "\u2705 Opgeslagen! " + naam;
+    ['naam','coords','lat','lng','note','tags','adres','bron'].forEach(id => $(id).value = "");
+    loadRecent();
+  }
+});
+
+// Laatst toegevoegd
+async function loadRecent(){
+  const { data, error } = await supabase.from('plekken')
+    .select('naam,status,categorie').order('created_at',{ascending:false}).limit(8);
+  const ul = $('recent');
+  if(error){ ul.innerHTML = "<li>Kon lijst niet laden.</li>"; return; }
+  if(!data.length){ ul.innerHTML = "<li>Nog geen plekken.</li>"; return; }
+  ul.innerHTML = data.map(p =>
+    '<li><span class="st ' + p.status + '">' + p.status + '</span> ' + p.naam + '</li>'
+  ).join("");
+}
+</script>
+</body>
+</html>
