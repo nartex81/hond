@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hondvriendelijke plekken in de Kempen — Zorghond Mollie</title>
+<meta name="theme-color" content="#1F3F37">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/favicon-180.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bosgroen:#2F5D50;--diepgroen:#1F3F37;--mollie-goud:#DFA33C;--zacht-goud:#F3DCAE;
+    --papier:#FBF7EE;--inkt:#2B2620;--stempelrood:#B4543A;--zachtgroen:#E3EDE9;--midgroen:#6DA08C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{font-family:'Nunito Sans',sans-serif;color:var(--inkt);background:var(--papier);}
+  h1,h2,h3{font-family:'Fraunces',serif;margin:0;color:var(--diepgroen);}
+  a{color:var(--bosgroen);}
+
+  header{background:var(--diepgroen);color:var(--zacht-goud);text-align:center;
+    padding:28px 24px 22px;border-bottom:4px solid var(--mollie-goud);}
+  header .eyebrow{font-size:0.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mollie-goud);font-weight:800;margin-bottom:6px;}
+  header h1{color:var(--papier);font-size:1.8rem;}
+  header p{max-width:600px;margin:10px auto 0;color:var(--zacht-goud);font-size:0.95rem;line-height:1.5;}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px;}
+
+  .controls{background:var(--papier);border:1px solid var(--zachtgroen);border-radius:14px;
+    margin:-22px auto 16px;padding:16px 18px;max-width:1044px;box-shadow:0 6px 18px rgba(31,63,55,0.08);
+    position:relative;z-index:400;}
+  .controls .label{font-size:0.74rem;font-weight:800;color:var(--bosgroen);text-transform:uppercase;letter-spacing:.05em;margin-bottom:9px;}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+  .filter{display:inline-flex;align-items:center;gap:7px;border:2px solid var(--zachtgroen);background:#fff;
+    border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:700;font-size:0.85rem;font-family:'Nunito Sans',sans-serif;
+    transition:all .15s ease;color:var(--inkt);}
+  .filter .dot{width:12px;height:12px;border-radius:50%;display:inline-block;}
+  .filter.off{opacity:0.4;}
+  .filter:hover{border-color:var(--midgroen);}
+  .verify-toggle{display:flex;align-items:center;gap:8px;font-size:0.85rem;font-weight:700;color:var(--bosgroen);cursor:pointer;user-select:none;}
+  .verify-toggle input{width:18px;height:18px;accent-color:var(--bosgroen);}
+
+  #map{height:560px;width:100%;border-radius:14px;border:1px solid var(--zachtgroen);margin-bottom:10px;}
+  .mapstate{text-align:center;font-size:0.9rem;color:#6b6255;padding:8px 0 2px;min-height:1.2em;}
+  .mapstate.error{color:var(--stempelrood);font-weight:700;}
+  .spinner{width:22px;height:22px;border:3px solid var(--zachtgroen);border-top-color:var(--bosgroen);
+    border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px;padding:4px 2px 0;margin-bottom:18px;font-size:0.83rem;align-items:center;}
+  .legend .grp{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+  .legend .sep{width:1px;height:18px;background:var(--zachtgroen);}
+  .legend-item{display:flex;align-items:center;gap:6px;}
+  .badge-ex{display:inline-flex;align-items:center;gap:5px;font-weight:700;font-size:0.76rem;padding:2px 9px;border-radius:999px;}
+  .badge-geverifieerd{background:var(--zacht-goud);color:#6b4a12;}
+  .badge-bezocht{background:var(--mollie-goud);color:var(--inkt);}
+
+  section.about{background:#fff;border:1px solid var(--zachtgroen);border-radius:14px;padding:22px 24px;margin-bottom:28px;}
+  section.about h2{font-size:1.2rem;margin-bottom:10px;}
+  section.about p{line-height:1.6;font-size:0.9rem;margin-bottom:8px;}
+
+  footer{text-align:center;padding:20px;font-size:0.78rem;color:#8a8071;}
+
+  .leaflet-popup-content-wrapper{border-radius:10px;font-family:'Nunito Sans',sans-serif;}
+  .leaflet-popup-content{margin:12px 14px;}
+  .pop-cat{display:inline-block;font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;
+    color:#fff;padding:2px 9px;border-radius:999px;margin-bottom:6px;}
+  .pop-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.08rem;color:var(--diepgroen);margin:0 0 4px;}
+  .pop-badge{display:inline-flex;align-items:center;gap:5px;font-weight:700;font-size:0.74rem;padding:2px 9px;border-radius:999px;margin-bottom:8px;}
+  .pop-note{font-size:0.85rem;line-height:1.45;margin:0 0 8px;color:var(--inkt);}
+  .pop-addr{font-size:0.78rem;color:#6b6255;margin:0 0 8px;}
+  .pop-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
+  .pop-tag{font-size:0.72rem;background:var(--zachtgroen);color:var(--bosgroen);font-weight:700;padding:2px 8px;border-radius:6px;}
+  .pop-src{font-size:0.78rem;}
+
+  @media (max-width:560px){header h1{font-size:1.5rem;}#map{height:460px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Zorghond Mollie · praktische gids</div>
+  <h1>🐾 Hondvriendelijke plekken in de Kempen</h1>
+  <p>Fijne plekken om met je hond op stap te gaan in de Kempen (Antwerpen &amp; Limburg): losloopzones, bossen, hondvriendelijke terrasjes en winkels. Gecheckt en aanbevolen door Zorghond Mollie.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="controls">
+    <div class="label">Toon op de kaart</div>
+    <div class="filters" id="filters"></div>
+    <label class="verify-toggle">
+      <input type="checkbox" id="onlyVisited">
+      Toon alleen plekken die Mollie zelf bezocht heeft &#128062;
+    </label>
+  </div>
+
+  <div id="map"></div>
+  <div class="mapstate" id="mapstate"><span class="spinner"></span>Plekken laden&#8230;</div>
+
+  <div class="legend" id="legend"></div>
+
+  <section class="about">
+    <h2>Over deze kaart</h2>
+    <p>We beginnen bewust klein en zorgvuldig, in onze eigen streek &#8212; de Kempen. Liever een handvol plekken die &#233;cht kloppen dan een lange lijst die niemand nakijkt. Elke plek krijgt een stempel dat aangeeft hoe zeker de info is:</p>
+    <p>&#9989; <strong>Geverifieerd</strong> &#8212; gecheckt tegen offici&#235;le info. &nbsp; &#128062; <strong>Bezocht door Mollie</strong> &#8212; we zijn er zelf geweest.</p>
+    <p>Regels rond loslopen en aanlijnen verschillen per gebied en kunnen wijzigen &#8212; controleer altijd de bebording ter plaatse. Klopt er iets niet, of wil je een plek voorstellen? Mail gerust naar <a href="mailto:info@hondmee.be">info@hondmee.be</a>. Binnenkort kun je plekken rechtstreeks via de site toevoegen.</p>
+  </section>
+
+</div>
+
+<footer>&#128062; Gemaakt voor Zorghond Mollie &#183; hondmee.be</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* ===================================================================
+   SUPABASE-KOPPELING
+   De 'anon public' sleutel mag openbaar in de website staan - dat hoort zo.
+   De database bepaalt zelf dat bezoekers alleen geverifieerde/bezochte
+   plekken te zien krijgen (nooit je kladjes, en niemand kan iets wijzigen).
+   =================================================================== */
+const SUPABASE_URL = "https://uamgtqstdrhckpxmbriv.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhbWd0cXN0ZHJoY2tweG1icml2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3NTc2MzEsImV4cCI6MjA5OTMzMzYzMX0.wxNckYVCT3AzBf0w-luGN6iKAsHTF_OlJ6MaLmbTCck";
+
+const CATS = {
+  natuur:  {label:"Bos & natuur",        color:"#2F5D50", emoji:"\uD83C\uDF32"},
+  los:     {label:"Losloopzone",         color:"#6DA08C", emoji:"\uD83E\uDDB4"},
+  terras:  {label:"Terras / horeca",     color:"#DFA33C", emoji:"\u2615"},
+  winkel:  {label:"Winkel / trimsalon",  color:"#B4543A", emoji:"\uD83D\uDECD\uFE0F"}
+};
+const STATUS = {
+  geverifieerd: {label:"Geverifieerd",        cls:"badge-geverifieerd", icon:"\u2705", ring:"#DFA33C", ringW:2.5},
+  bezocht:      {label:"Bezocht door Mollie",  cls:"badge-bezocht",     icon:"\uD83D\uDC3E", ring:"#DFA33C", ringW:3.5}
+};
+
+const map = L.map('map', {scrollWheelZoom:true}).setView([51.20, 5.10], 9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
+}).addTo(map);
+
+const active = {natuur:true, los:true, terras:true, winkel:true};
+let onlyVisited = false;
+let plekken = [];
+let markers = [];
+const stateEl = document.getElementById('mapstate');
+
+async function load(){
+  stateEl.className = "mapstate";
+  stateEl.innerHTML = '<span class="spinner"></span>Plekken laden\u2026';
+  try{
+    const url = SUPABASE_URL + "/rest/v1/plekken"
+      + "?select=naam,categorie,status,lat,lng,note,tags,adres,bron"
+      + "&status=in.(geverifieerd,bezocht)&order=naam.asc";
+    const res = await fetch(url, {
+      headers: { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY }
+    });
+    if(!res.ok) throw new Error("verbinding mislukt");
+    plekken = await res.json();
+    draw();
+  }catch(e){
+    stateEl.className = "mapstate error";
+    stateEl.textContent = "Kon de plekken niet laden. Probeer het later opnieuw.";
+  }
+}
+
+function draw(){
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+  let shown = 0;
+  plekken.forEach(p => {
+    if(!CATS[p.categorie] || !STATUS[p.status]) return;
+    if(!active[p.categorie]) return;
+    if(onlyVisited && p.status !== "bezocht") return;
+    const cat = CATS[p.categorie], st = STATUS[p.status];
+    const marker = L.circleMarker([p.lat, p.lng], {
+      radius:9, fillColor:cat.color, color:st.ring, weight:st.ringW, fillOpacity:0.92
+    }).addTo(map);
+    const tagList = (p.tags || "").split(",").map(t => t.trim()).filter(Boolean);
+    const tags = tagList.map(t => '<span class="pop-tag">' + t + '</span>').join("");
+    const addr = p.adres ? '<p class="pop-addr">\uD83D\uDCCD ' + p.adres + '</p>' : "";
+    const src = p.bron ? '<p class="pop-src"><a href="' + p.bron + '" target="_blank" rel="noopener">Meer info \u203A</a></p>' : "";
+    marker.bindPopup(
+      '<span class="pop-cat" style="background:' + cat.color + '">' + cat.emoji + ' ' + cat.label + '</span>' +
+      '<p class="pop-title">' + p.naam + '</p>' +
+      '<span class="pop-badge ' + st.cls + '">' + st.icon + ' ' + st.label + '</span>' +
+      '<p class="pop-note">' + (p.note || "") + '</p>' +
+      addr +
+      '<div class="pop-tags">' + tags + '</div>' +
+      src
+    );
+    markers.push(marker);
+    shown++;
+  });
+  if(plekken.length === 0){
+    stateEl.className = "mapstate";
+    stateEl.textContent = "Er staan nog geen plekken online \u2014 binnenkort meer! \uD83D\uDC3E";
+  } else if(shown === 0){
+    stateEl.className = "mapstate";
+    stateEl.textContent = "Geen plekken voor deze filters. Zet er een categorie bij.";
+  } else {
+    stateEl.textContent = shown + (shown === 1 ? " plek" : " plekken") + " op de kaart.";
+  }
+}
+
+const filtersEl = document.getElementById('filters');
+Object.entries(CATS).forEach(([key, c]) => {
+  const b = document.createElement('button');
+  b.className = "filter";
+  b.innerHTML = '<span class="dot" style="background:' + c.color + '"></span>' + c.emoji + ' ' + c.label;
+  b.addEventListener('click', () => {
+    active[key] = !active[key];
+    b.classList.toggle('off', !active[key]);
+    draw();
+  });
+  filtersEl.appendChild(b);
+});
+document.getElementById('onlyVisited').addEventListener('change', e => {
+  onlyVisited = e.target.checked;
+  draw();
+});
+
+const legendEl = document.getElementById('legend');
+const catItems = Object.values(CATS).map(c =>
+  '<div class="legend-item"><span class="dot" style="width:12px;height:12px;border-radius:50%;display:inline-block;background:' + c.color + '"></span> ' + c.label + '</div>'
+).join("");
+const badgeItems = Object.values(STATUS).map(s =>
+  '<span class="badge-ex ' + s.cls + '">' + s.icon + ' ' + s.label + '</span>'
+).join("");
+legendEl.innerHTML = '<div class="grp">' + catItems + '</div><div class="sep"></div><div class="grp">' + badgeItems + '</div>';
+
+load();
+</script>
+</body>
+</html>
