@@ -1,0 +1,53 @@
+/* =====================================================================
+   site.css — gedeelde fundering voor alle gidsen van Zorghond Mollie
+   ---------------------------------------------------------------------
+   Hier staan de dingen die op ELKE pagina hetzelfde horen te zijn:
+   de kleuren (design-tokens), de reset, de basis-typografie, de
+   "terug naar home"-link en de reduced-motion-regel.
+
+   Pagina-specifieke stijl (koppen, kaarten, kaart, formulieren ...)
+   blijft in de <style> van elke pagina zelf staan. Die <style> wordt
+   NA dit bestand geladen, dus een pagina kan altijd iets overschrijven.
+   ===================================================================== */
+
+:root{
+  --bosgroen:#2F5D50;
+  --diepgroen:#1F3F37;
+  --mollie-goud:#DFA33C;
+  --zacht-goud:#F3DCAE;
+  --papier:#FBF7EE;
+  --inkt:#2B2620;
+  --stempelrood:#B4543A;
+  --zachtgroen:#E3EDE9;
+  --midgroen:#6DA08C;
+  --dieprood:#8E3A28;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+
+html,body{
+  font-family:'Nunito Sans',sans-serif;
+  color:var(--inkt);
+  background:var(--papier);
+}
+
+h1,h2,h3{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  color:var(--diepgroen);
+  margin:0;
+}
+
+/* Terug-naar-home link, gebruikt in de header van elke subpagina */
+.homelink{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--zacht-goud);font-size:0.82rem;font-weight:700;
+  text-decoration:none;opacity:.85;margin-bottom:12px;
+  transition:opacity .15s ease,color .15s ease;
+}
+.homelink:hover{opacity:1;color:var(--mollie-goud);}
+.homelink:focus-visible{outline:2px solid var(--mollie-goud);outline-offset:3px;border-radius:4px;}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;}
+}
