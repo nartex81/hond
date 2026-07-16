@@ -26,6 +26,11 @@
   header .eyebrow{font-size:0.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mollie-goud);font-weight:800;margin-bottom:6px;}
   header h1{color:var(--papier);font-size:1.8rem;}
   header p{max-width:600px;margin:10px auto 0;color:var(--zacht-goud);font-size:0.95rem;line-height:1.5;}
+  .homelink{display:inline-flex;align-items:center;gap:6px;color:var(--zacht-goud);font-size:0.82rem;
+    font-weight:700;text-decoration:none;opacity:.85;margin-bottom:12px;transition:opacity .15s ease,color .15s ease;}
+  .homelink:hover{opacity:1;color:var(--mollie-goud);}
+  .homelink:focus-visible{outline:2px solid var(--mollie-goud);outline-offset:3px;border-radius:4px;}
+  .filter:focus-visible{outline:3px solid var(--mollie-goud);outline-offset:2px;}
 
   .wrap{max-width:1080px;margin:0 auto;padding:0 18px;}
 
@@ -77,13 +82,15 @@
   .pop-src{font-size:0.78rem;}
 
   @media (max-width:560px){header h1{font-size:1.5rem;}#map{height:460px;}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 </style>
 </head>
 <body>
 
 <header>
+  <a class="homelink" href="index.html">← Alle gidsen</a>
   <div class="eyebrow">Zorghond Mollie · praktische gids</div>
-  <h1>🐾 Hondvriendelijke plekken in de Kempen</h1>
+  <h1><span aria-hidden="true">🐾</span> Hondvriendelijke plekken in de Kempen</h1>
   <p>Fijne plekken om met je hond op stap te gaan in de Kempen (Antwerpen &amp; Limburg): losloopzones, bossen, hondvriendelijke terrasjes en winkels. Gecheckt en aanbevolen door Zorghond Mollie.</p>
 </header>
 
@@ -112,7 +119,7 @@
 
 </div>
 
-<footer>&#128062; Gemaakt voor Zorghond Mollie &#183; hondmee.be</footer>
+<footer><span aria-hidden="true">&#128062;</span> Gemaakt voor Zorghond Mollie &#183; hondmee.be</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>

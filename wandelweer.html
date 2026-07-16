@@ -6,6 +6,7 @@
 <link rel="apple-touch-icon" href="/favicon-180.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1F3F37">
 <title>Wandelweer voor je hond — Zorghond Mollie</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -40,6 +41,10 @@
   }
   header h1{color:var(--papier);font-size:1.9rem;}
   header p{max-width:620px;margin:10px auto 0;color:var(--zacht-goud);font-size:0.95rem;line-height:1.5;}
+  .homelink{display:inline-flex;align-items:center;gap:6px;color:var(--zacht-goud);font-size:0.82rem;
+    font-weight:700;text-decoration:none;opacity:.85;margin-bottom:12px;transition:opacity .15s ease,color .15s ease;}
+  .homelink:hover{opacity:1;color:var(--mollie-goud);}
+  .homelink:focus-visible{outline:2px solid var(--mollie-goud);outline-offset:3px;border-radius:4px;}
 
   .wrap{max-width:920px;margin:0 auto;padding:0 18px;}
 
@@ -153,8 +158,9 @@
 <body>
 
 <header>
+  <a class="homelink" href="index.html">← Alle gidsen</a>
   <div class="eyebrow">Zorghond Mollie · praktische gids</div>
-  <h1>🐾 Wandelweer voor je hond</h1>
+  <h1><span aria-hidden="true">🐾</span> Wandelweer voor je hond</h1>
   <p>Geef een locatie in en ontdek wat het weer vandaag doet — en op welk uur je het best met je hond op stap gaat. Met extra aandacht voor hitte en warme stoepen.</p>
 </header>
 
@@ -212,7 +218,7 @@
 
 </div>
 
-<footer>Gemaakt voor Zorghond Mollie · zorghond.be</footer>
+<footer>Gemaakt voor Zorghond Mollie · hondmee.be</footer>
 
 <script>
 const locInput = document.getElementById('locInput');
