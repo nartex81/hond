@@ -11,14 +11,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 <style>
-  :root{
-    --bosgroen:#2F5D50;--diepgroen:#1F3F37;--mollie-goud:#DFA33C;--zacht-goud:#F3DCAE;
-    --papier:#FBF7EE;--inkt:#2B2620;--stempelrood:#B4543A;--zachtgroen:#E3EDE9;--midgroen:#6DA08C;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html,body{font-family:'Nunito Sans',sans-serif;color:var(--inkt);background:var(--papier);}
-  h1,h2,h3{font-family:'Fraunces',serif;margin:0;color:var(--diepgroen);}
   a{color:var(--bosgroen);}
 
   header{background:var(--diepgroen);color:var(--zacht-goud);text-align:center;
@@ -26,6 +20,7 @@
   header .eyebrow{font-size:0.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mollie-goud);font-weight:800;margin-bottom:6px;}
   header h1{color:var(--papier);font-size:1.8rem;}
   header p{max-width:600px;margin:10px auto 0;color:var(--zacht-goud);font-size:0.95rem;line-height:1.5;}
+  .filter:focus-visible{outline:3px solid var(--mollie-goud);outline-offset:2px;}
 
   .wrap{max-width:1080px;margin:0 auto;padding:0 18px;}
 
@@ -82,8 +77,9 @@
 <body>
 
 <header>
+  <a class="homelink" href="index.html">← Alle gidsen</a>
   <div class="eyebrow">Zorghond Mollie · praktische gids</div>
-  <h1>🐾 Hondvriendelijke plekken in de Kempen</h1>
+  <h1><span aria-hidden="true">🐾</span> Hondvriendelijke plekken in de Kempen</h1>
   <p>Fijne plekken om met je hond op stap te gaan in de Kempen (Antwerpen &amp; Limburg): losloopzones, bossen, hondvriendelijke terrasjes en winkels. Gecheckt en aanbevolen door Zorghond Mollie.</p>
 </header>
 
@@ -112,7 +108,7 @@
 
 </div>
 
-<footer>&#128062; Gemaakt voor Zorghond Mollie &#183; hondmee.be</footer>
+<footer><span aria-hidden="true">&#128062;</span> Gemaakt voor Zorghond Mollie &#183; hondmee.be</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>

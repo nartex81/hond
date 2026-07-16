@@ -5,16 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zorghond Mollie — Gidsen &amp; tools</title>
 <meta name="theme-color" content="#1F3F37">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 <style>
-  :root{
-    --bosgroen:#2F5D50;--diepgroen:#1F3F37;--mollie-goud:#DFA33C;--zacht-goud:#F3DCAE;
-    --papier:#FBF7EE;--inkt:#2B2620;--stempelrood:#B4543A;--zachtgroen:#E3EDE9;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-  html,body{font-family:'Nunito Sans',sans-serif;color:var(--inkt);background:var(--papier);}
-  h1,h2,h3{font-family:'Fraunces',serif;margin:0;color:var(--diepgroen);}
   a{text-decoration:none;color:inherit;}
 
   /* ---- Masthead ---- */
@@ -107,17 +104,16 @@
     box-shadow:0 6px 16px rgba(223,163,60,0.28);transition:transform .15s ease, background .15s ease;
   }
   .suggest .btn:hover{background:#c98f2c;transform:translateY(-2px);}
-  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="inner">
-    <div class="crest">🐾</div>
+    <div class="crest" aria-hidden="true">🐾</div>
     <div class="brand">Zorghond Mollie</div>
     <div class="wordmark">hondmee<span class="dot">.be</span></div>
-    <div class="rule"><span class="line left"></span><span class="paw">🐾</span><span class="line"></span></div>
+    <div class="rule" aria-hidden="true"><span class="line left"></span><span class="paw">🐾</span><span class="line"></span></div>
     <div class="tagline">short legs, big love</div>
   </div>
 </header>
@@ -144,7 +140,7 @@
   </div>
 </div>
 
-<footer><span class="paw">🐾</span> Zorghond Mollie · zorghond.be</footer>
+<footer><span class="paw" aria-hidden="true">🐾</span> Zorghond Mollie · hondmee.be</footer>
 
 <script>
 /* =====================================================================

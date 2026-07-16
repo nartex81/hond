@@ -6,24 +6,13 @@
 <link rel="apple-touch-icon" href="/favicon-180.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1F3F37">
 <title>Honden op het strand — Zorghond Mollie</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 <style>
-  :root{
-    --bosgroen:#2F5D50;
-    --diepgroen:#1F3F37;
-    --mollie-goud:#DFA33C;
-    --zacht-goud:#F3DCAE;
-    --papier:#FBF7EE;
-    --inkt:#2B2620;
-    --stempelrood:#B4543A;
-    --zachtgroen:#E3EDE9;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;background:var(--papier);color:var(--inkt);font-family:'Nunito Sans',sans-serif;}
-  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;color:var(--diepgroen);margin:0;}
   a{color:var(--bosgroen);}
 
   header{
@@ -72,6 +61,8 @@
     color:var(--inkt);
     background:#fff;
   }
+  input:focus, select:focus, textarea:focus{outline:3px solid var(--zacht-goud);border-color:var(--mollie-goud);}
+  button.chip:focus-visible{outline:3px solid var(--mollie-goud);outline-offset:2px;}
   .preset-btns, .time-btns{display:flex;gap:8px;flex-wrap:wrap;}
   button.chip{
     font-family:'Nunito Sans',sans-serif;
@@ -189,8 +180,9 @@
 <body>
 
 <header>
+  <a class="homelink" href="index.html">← Alle gidsen</a>
   <div class="eyebrow">Zorghond Mollie · praktische gids</div>
-  <h1>🐾 Honden op het strand</h1>
+  <h1><span aria-hidden="true">🐾</span> Honden op het strand</h1>
   <p>Overzicht van de Belgische kust, Zeeland en Zuid-Holland: waar, wanneer en hoe je hond welkom is. Kies een datum en tijdstip — de kaart toont meteen wat er op dat moment geldt.</p>
 </header>
 
@@ -258,7 +250,7 @@
 
 </div>
 
-<footer>Gemaakt voor Zorghond Mollie · zorghond.be</footer>
+<footer>Gemaakt voor Zorghond Mollie · hondmee.be</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
@@ -538,7 +530,7 @@ document.getElementById('feedbackForm').addEventListener('submit', (e) => {
   const name = document.getElementById('fbName').value || "Anoniem";
   const subject = encodeURIComponent(`Feedback hondenstranden-kaart: ${beachName}`);
   const body = encodeURIComponent(`Strand/zone: ${beachName}\n\nOpmerking:\n${message}\n\n— ${name}`);
-  window.location.href = `mailto:info@zorghond.be?subject=${subject}&body=${body}`;
+  window.location.href = `mailto:info@hondmee.be?subject=${subject}&body=${body}`;
 });
 
 /* ---------- INIT ---------- */
