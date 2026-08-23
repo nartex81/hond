@@ -38,6 +38,14 @@ h1,h2,h3{
   margin:0;
 }
 
+/* Alleen voor screenreaders: onzichtbaar op het scherm, wel voorgelezen.
+   Gebruik voor koppen die de structuur compleet maken maar visueel
+   niet nodig zijn. */
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
 /* Terug-naar-home link, gebruikt in de header van elke subpagina */
 .homelink{
   display:inline-flex;align-items:center;gap:6px;
