@@ -2,7 +2,7 @@ name: Supabase Keep-Alive
 
 on:
   schedule:
-    - cron: '0 6 */3 * *'  # elke 3 dagen om 06:00 UTC
+    - cron: '0 6 * * *'  # elke dag om 06:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Ping Supabase database
         run: |
-          curl -s -X GET \
+          curl -sS -f --retry 3 --retry-delay 5 --max-time 30 -X GET \
             "https://uamgtqstdrhckpxmbriv.supabase.co/rest/v1/plekken?select=id&limit=1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
