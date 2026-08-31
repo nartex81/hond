@@ -133,8 +133,8 @@ const STATUS = {
 };
 
 const map = L.map('map', {scrollWheelZoom:true}).setView([51.20, 5.10], 9);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-  attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution:'&copy; OpenStreetMap contributors', maxZoom:19
 }).addTo(map);
 
 const active = {natuur:true, los:true, terras:true, winkel:true};
